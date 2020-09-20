@@ -1,46 +1,44 @@
 <?php
 
-require_once "../function.php";
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-// echo $id;
+    $sql = "SELECT * FROM tblkategori WHERE idkategori=$id";
 
-$sql = " SELECT * FROM tblkategori WHERE idkategori =$id";
-$result = mysqli_query($koneksi, $sql);
-
-$row = mysqli_fetch_assoc($result);
-
-//echo $row['kategori'];
-
-// $kategori = 'Jelly Bean';
-// $id = 14;
-// $sql = "UPDATE tblkategori SET kategori='$kategori' WHERE idkategori= $id ";
-
-// $result = mysqli_query($koneksi, $sql);
-
-// echo $sql;
+    $row = $db->getITEM($sql);
+}
 
 ?>
 
+<h3>Update Kategori</h3>
 
-<form action="" method="post">
-    kategori :
-    <input type="text" name="kategori" value="<?php echo $row['kategori'] ?>">
-    <br>
-    <input type="submit" name="simpan" value="simpan">
+<div class="form-group">
+    <form action="" method="post">
+        <div class="form-group w-50">
+            <label for="">Nama Kategori</label>
+            <input type="text" name="kategori" required value="<?php echo $row['kategori'] ?>" class="form-control">
+        </div>
 
-</form>
+        <div>
+
+            <input type="submit" name="simpan" value="simpan" class="btn btn-primary">
+
+        </div>
+    </form>
+</div>
 
 <?php
 
 if (isset($_POST['simpan'])) {
-
     $kategori = $_POST['kategori'];
 
-    $sql = "UPDATE tblkategori SET kategori='$kategori' WHERE idkategori= $id ";
+    $sql = "UPDATE tblkategori SET kategori='$kategori' WHERE idkategori=$id ";
 
-    $result = mysqli_query($koneksi, $sql);
 
-    header("location:http://localhost/php-smk/Restoran/kategori/select.php");
+    $db->runSQL($sql);
+
+    header("location: ?f=kategori&m=select");
 }
+
 
 ?>

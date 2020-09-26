@@ -92,7 +92,7 @@ $no = 1 + $mulai;
 <?php
 
 for ($i = 1; $i <= $halaman; $i++) {
-    echo '<a href="?f=menu&m=select&p=' . $i . '">' . $i . '</a>';
+    echo '<a href="?f=menu&m=select&p=' . $i .  '">' . $i . '</a>';
     echo '&nbsp &nbsp &nbsp';
 }
 

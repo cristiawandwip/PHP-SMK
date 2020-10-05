@@ -5,6 +5,7 @@
 if (isset($_GET['hapus'])) {
     $id = $_GET['hapus'];
     unset($_SESSION['_' . $id]);
+    header("location:?f=home&m=beli");
 }
 
 if (isset($_GET['tambah'])) {
@@ -52,6 +53,7 @@ function keranjang()
 
     global $db;
     $total = 0;
+    global $total;
 
 
 
@@ -84,10 +86,10 @@ function keranjang()
                 echo '<tr>';
                 echo '<td>' . $r['menu'] . '</td>';
                 echo '<td>' . $r['harga'] . '</td>';
-                echo '<td> <a href="?f=home&m=beli&tambah=' . $r['idmenu'] . '"> [+] </a> &nbsp &nbsp  ' . $value . ' &nbsp &nbsp  <a href="?f=home&m=beli&kurang=' . $r['idmenu'] . '"> [-] </a> </td>';
+                echo '<td><a href="?f=home&m=beli&tambah=' . $r['idmenu'] . '">[+]</a>&nbsp &nbsp' . $value . '&nbsp &nbsp <a href="?f=home&m=beli&kurang=' . $r['idmenu'] . '">[-]</a></td>';
                 echo '<td>' . $r['harga'] * $value . '</td>';
                 echo '<td><a href="?f=home&m=beli&hapus=' . $r['idmenu'] . '">Hapus</a></td>';
-                echo '</tr>';
+                echo "</tr>";
                 $total = $total + ($value * $r['harga']);
             }
         }
@@ -99,6 +101,22 @@ function keranjang()
 </tr>';
 
     echo '</table>';
+}
+
+
+
+?>
+
+<?php
+
+if (!empty($total)) {
+
+?>
+
+    <a class="btn btn-primary" href="?f=home&m=checkout&total=<?php echo $total ?>" role="button">CHECKOUT</a>
+
+<?php
+
 }
 
 ?>
